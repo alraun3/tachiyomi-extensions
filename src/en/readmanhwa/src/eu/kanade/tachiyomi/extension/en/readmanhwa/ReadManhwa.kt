@@ -39,6 +39,9 @@ class ReadManhwa : HttpSource() {
     override val client: OkHttpClient = network.cloudflareClient
 
     private val gson = Gson()
+    
+    override fun headersBuilder(): Headers.Builder = super.headersBuilder()
+            .add("nsfw", "true")
 
     private fun parseMangaFromJson(response: Response): MangasPage {
         val jsonObject = gson.fromJson<JsonObject>(response.body()!!.string())
